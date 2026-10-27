@@ -1,0 +1,15 @@
+name: Check my code
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest
+      - run: pytest
+      - run: echo "The secret is $MY_KEY"
+        env:
+          MY_KEY: ${{ secrets.API_KEY }}
